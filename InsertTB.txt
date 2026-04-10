@@ -1,0 +1,53 @@
+INSERT INTO students(numstud, name, firstname, dateofbirth, street, postalcod, city)
+VALUES (1,'Dupond', 'Amélie', '2000-07-01', '12 rue des Lilas', 64345, 'Fleurville'),
+(2,'Boulanger', 'Bernard', '2001-01-05', '15 avenue des Roses', 64345, 'Fleurville'),
+(3,'Raymond', 'Céline', '2003-06-18', '25 rue des Hortensias', 64345, 'Fleurville'),
+(4,'Dubois', 'David', '2002-08-12', '5 rue Arkose', 84506, 'Rocheville'), 
+(5,'Martin', 'Emilie', '2002-11-16', '4 impasse des Corbeaux', 61354, 'Oiseaux'),
+(6,'Durand', 'François', '2002-05-11', '6 avenue des Cormeilles', 61354, 'Oiseaux'),
+(7,'Dupont', 'Gérard', '2002-07-31', '5 rue des Chênes', 64618, 'Arbres');
+
+INSERT INTO matters(codemat, wording, coef)
+VALUES (1,'Physics', 2),
+(2, 'French', 1),
+(3, 'English', 1);
+
+INSERT INTO tests(numtest, testdate, place, codemat)
+VALUES (1, '2014-05-06', 'B06', 1),
+(2, '2014-03-15', 'B07', 1),
+(3, '2014-05-07', 'B06', 2),
+(4, '2014-09-06', 'B07', 2),
+(5, '2013-12-20', 'B08', 3);
+
+INSERT INTO notations(numstud, numtest, score)
+VALUES
+(1, 1, 20),
+(2, 1, 15),
+(3, 1, 12),
+(4, 1, 05),
+(5, 1, 05),
+(6, 1, 03),
+(7, 1, 10),
+(2, 2, 20),
+(1, 2, 18),
+(3, 2, 14),
+(4, 2, 06),
+(5, 2, 14),
+(6, 2, 11),
+(6, 3, 11),
+(7, 3, 13),
+(1, 3, 10),
+(2, 3, 09),
+(3, 3, 06),
+(4, 3, 07),
+(5, 3, 02),
+(6, 4, 10),
+(7, 4, 12),
+(4, 4, 14),
+(5, 4, 03),
+(2, 4, 08),
+(2, 5, 16),
+(3, 5, 17),
+(4, 5, 10),
+(5, 5, 08),
+(6, 5, 07);

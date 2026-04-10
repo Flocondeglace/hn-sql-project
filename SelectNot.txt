@@ -1,0 +1,73 @@
+-- Total number of tests
+SELECT COUNT(numtest) 
+FROM tests;
+
+-- List of score, specifying for each the name and first name of the student who obtained it
+SELECT score, name, firstname 
+FROM notations as n 
+    LEFT JOIN students as s ON n.numstud = s.numstud;
+
+-- List of score, specifying for each the name and first name of the student who obtained it and the wording of the matter concerned
+SELECT score, name, firstname, wording 
+FROM notations as n 
+    LEFT JOIN students as s ON n.numstud = s.numstud
+    LEFT JOIN tests as t ON n.numtest = t.numtest
+    LEFT JOIN matters as m on t.codemat = m.codemat;
+
+-- List of score greater than or equal to 10
+SELECT score
+FROM notations
+WHERE score >= 10;
+
+-- Last name and first name of the students who obtained at least a score equal to 20
+SELECT DISTINCT name, firstname
+FROM students as s
+    RIGHT JOIN notations as n ON s.numstud = n.numstud
+WHERE score >= 20;
+
+-- Average scores for each student (indicate name and first name)
+SELECT SUM(score*coef)/SUM(coef) ponderatedAVG, name, firstname
+FROM students as s
+    LEFT JOIN notations AS n on s.numstud = n.numstud
+    LEFT JOIN tests as t ON t.numtest = n.numtest
+    LEFT JOIN matters as m on m.codemat = t.codemat   
+GROUP BY s.numstud;
+
+
+-- List of tests whose date is between January 1 and June 30, 2014
+SELECT *
+FROM tests
+WHERE testdate BETWEEN '2014-01-01' AND '2014-06-30';
+
+-- List of tests (number, date and place) including the matter of the subject
+SELECT numtest number, testdate date, place, wording
+FROM tests as t
+    LEFT JOIN matters as m ON t.codemat = m.codemat;
+
+-- Average scores for each student (indicate name and first name), ranked from best to worst
+SELECT AVG(score), name, firstname
+FROM students as s
+    RIGHT JOIN notations as n ON s.numstud = n.numstud
+GROUP BY s.numstud
+ORDER BY AVG(score) DESC;
+
+-- Average scores for matter (indicate the wording) comprising more than one test
+WITH average_score_test AS(
+  SELECT AVG(score) avgScoreTest, t.codemat mat
+  FROM notations as n
+      RIGHt JOIN tests as t on t.numtest = n.numtest
+  GROUP BY t.numtest
+ )
+
+SELECT AVG(avgScoreTest) avgScoreMatter, wording
+FROM average_score_test
+	RIGHT JOIN matters as m ON m.codemat = mat
+GROUP BY codemat
+HAVING COUNT(codemat) > 1;
+
+-- Average of score obtained in the tests (indicate the number of the test) where less than 6 students were rated
+SELECT AVG(score) avgScoreTest, t.numtest
+  FROM notations as n
+      RIGHt JOIN tests as t on t.numtest = n.numtest
+  GROUP BY t.numtest
+ HAVING COUNT(t.numtest) < 6;
